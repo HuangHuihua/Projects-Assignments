@@ -1,0 +1,162 @@
+---------------------------------------------------------------------------
+--
+-- gcoord.sql-
+-- src/tutorial/gcoord.source
+--
+---------------------------------------------------------------------------
+
+
+CREATE TYPE GeoCoord;
+
+CREATE FUNCTION geocoord_in(cstring)
+   RETURNS GeoCoord
+   AS '_OBJWD_/gcoord'
+   LANGUAGE C IMMUTABLE STRICT;
+
+-- the output function 'complex_out' takes the internal representation and
+-- converts it into the textual representation.
+
+CREATE FUNCTION geocoord_out(GeoCoord)
+   RETURNS cstring
+   AS '_OBJWD_/gcoord'
+   LANGUAGE C IMMUTABLE STRICT;
+
+
+
+-- now, we can create the type. The internallength specifies the size of the
+-- memory block required to hold the type
+
+CREATE TYPE GeoCoord (
+   internallength = 500, --278,300
+   input = geocoord_in,
+   output = geocoord_out,
+--   receive = geoCoord_recv,
+--   send = geoCoord_send,
+   alignment = double
+   );
+
+
+-- first, define the required operators
+CREATE FUNCTION geocoord_abs_lt(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION geocoord_abs_le(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION geocoord_abs_eq(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+--CREATE FUNCTION geocoord_abs_eq_h(text, text) RETURNS bool
+--   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION geocoord_abs_neq(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+
+CREATE FUNCTION geocoord_abs_ge(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION geocoord_abs_gt(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+--
+CREATE FUNCTION geocoord_abs_samezone(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION geocoord_abs_notsamezone(geoCoord, geoCoord) RETURNS bool
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+--convert format
+CREATE FUNCTION convert2dms(geoCoord) RETURNS cstring
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+
+
+CREATE OPERATOR < (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_lt,
+   commutator = > , negator = >= ,
+   restrict = scalarltsel, join = scalarltjoinsel
+);
+CREATE OPERATOR <= (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_le,
+   commutator = >= , negator = > ,
+   restrict = scalarlesel, join = scalarlejoinsel
+);
+CREATE OPERATOR = (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_eq,
+   commutator = = ,
+   negator = <> ,
+   restrict = eqsel, join = eqjoinsel,
+   HASHES
+);
+
+
+
+CREATE OPERATOR <> (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_neq,
+   commutator = <> ,
+   negator = = ,
+   restrict = neqsel, join = neqjoinsel
+);
+
+CREATE OPERATOR >= (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_ge,
+   commutator = <= , negator = < ,
+   restrict = scalargesel, join = scalargejoinsel
+);
+CREATE OPERATOR > (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_gt,
+   commutator = < , negator = <= ,
+   restrict = scalargtsel, join = scalargtjoinsel
+);
+
+CREATE OPERATOR ~ (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_samezone,
+   commutator = ~ , negator = !~ ,
+   restrict =  eqsel, join = eqjoinsel
+);
+
+CREATE OPERATOR !~ (
+   leftarg = geoCoord, rightarg = geoCoord, procedure = geocoord_abs_notsamezone,
+   commutator = !~ , negator = ~ ,
+   restrict = neqsel, join = neqjoinsel
+);
+
+-- create the support function too
+CREATE FUNCTION geocoord_abs_cmp(geoCoord, geoCoord) RETURNS int4
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION geocoord_abs_cmp_(geoCoord, geoCoord) RETURNS bigint
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+
+
+CREATE FUNCTION geocoord_hash1(geoCoord) RETURNS int4
+   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+--CREATE FUNCTION geocoord_hash(text,text) RETURNS bigint
+--   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+-- CREATE FUNCTION geocoord_hash3(geoCoord,geoCoord) RETURNS bigint
+--   AS '_OBJWD_/gcoord' LANGUAGE C IMMUTABLE STRICT;
+
+-- now we can make the operator class
+CREATE OPERATOR CLASS geocoord_abs_ops
+    DEFAULT FOR TYPE geoCoord USING btree AS
+        OPERATOR        1       < ,
+        OPERATOR        2       <= ,
+        OPERATOR        3       = ,
+        OPERATOR        4       >= ,
+        OPERATOR        5       > ,
+        FUNCTION        1       geocoord_abs_cmp(geoCoord, geoCoord);
+
+-- for hash operator class
+CREATE OPERATOR CLASS geocoord_abs_ops_hash
+    DEFAULT FOR TYPE geoCoord USING hash AS
+        OPERATOR        1       = , 
+        FUNCTION        1       geocoord_hash1(geoCoord),
+--        FUNCTION        2       geocoord_hash(text,text),
+--        FUNCTION        3       geocoord_hash3(geoCoord,geoCoord),
+        FUNCTION        2       geocoord_abs_cmp_(geoCoord,geoCoord);
+
+
+
+-- clean up the example
+--DROP TABLE StoreInfo;
+--DROP TYPE GeoCoord CASCADE;

@@ -1,0 +1,25 @@
+/* base styles, feel free to edit */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial;
+}
+
+.hide{
+    display: none !important;
+}
+
+.nav-item:hover {
+    cursor:  pointer !important;;
+}
+
+.ho: hover{
+    cursor:  pointer !important; 
+}
+
+
+.button {
+    border-radius: 5px;
+    background-color: lightyellow;
+}

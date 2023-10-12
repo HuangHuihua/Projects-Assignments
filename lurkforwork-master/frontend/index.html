@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>LurkForWork</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- You can add your styles and scripts here -->
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/global.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <!-- This is an example app structure, you can modify this as much as you choose --> 
+    <header>
+        <div id="popup-alert" class="position-fixed top-50 start-50 hide alert alert-warning" role="alert">
+            <p id="popup-alert-p"></p>
+            <button id="close-alert" class="btn-close btn-close-grey"></button>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+            <h2>lurkforwork.com</h2>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" id = "nav-login">Login</li>
+                    <li class="nav-item" id="nav-register">Register</li>
+
+                    <!-- nav bar for log in page-->
+                    <li class="hide nav-item" id="nav-home"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                    <li class="hide nav-item d-flex justify-content-end" id="nav-profile" ><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png" style="width: 40px; height: 40px;"/></li>
+                </ul>
+                </div>
+            </div>
+            <div style = "padding-left: 40px;"><button id="logout" class="btn btn-outline-info">Logout</button></div>
+        </nav>
+    </header>
+    <main role="main">
+
+        <div id="section-user-profile" class="hide">
+            <div><button id = "from-profile-back" type="button" class="btn">&#5130; Back</button>
+                <button id ="unwatch-user-profile" type="button" class="hide btn btn-outline-info" >&#121366;</button>
+                <button id ="watch-user-profile" type="button" class="hide btn btn-outline-info">👀</button>
+                <div class="card position-fixed top-50 start-50 hide" id="watch-user-profile-email-div">
+                    <div id="pemail-1" class="hide">
+                    <button id="close-watch-user-profile-email" class="btn-close btn-close-grey"></button>
+                    Type your email<input id="watch-user-profile-email" class="col"/>
+                    <button id="submit-watch-user-profile-email" class="btn">Submit</button>
+                    </div>
+                    <div id="pemail-2" class="hide">
+                    <button id="close-unwatch-user-profile-email" class="btn-close btn-close-grey"></button>
+                    Your email<input id="unwatch-user-profile-email" class="col"/>
+                    <button id="submit-unwatch-user-profile-email" class="btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        <div id="goto-update-profile" class="btn btn-outline-info">Click Update profile</div>
+            <div id = "section-user-profile-update" class="hide ">
+                <div id="input-profile-update" class="table table-hover ">
+                    Email<input id="profile-update-email" class="col-3" type="email"></input>
+                    Password<input id="profile-update-password" class="col-3" type="password" placeholder="12345678"></input>
+                    Name<input  id="profile-update-name" class="col-3" type="text" placeholder="hhh"/><br>
+                    Image<input class ="form-control" id ="profile-update-image" type="url" accpet = "image/png;base64 " value="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" />
+                </div>
+                <button id="profile-update-button" class="btn btn-outline-info">Update Profile</button>
+            </div>
+            <div id = "profile-items" class="row align-items-start mb-3">
+                
+            </div>
+
+        </div>            
+        <div id="section-logged-in" class="hide">
+            Login in page
+            <div class ="table table-hover " style="width: 70%; position: center;">
+            <div class = "row g-3">
+            <button id="create-job-fake" class="col-3 btn btn-outline-info">Create job</button>
+            <button id="update-job" class="col-3 btn btn-outline-info">Update job</button>
+            <!-- later create an individual button for every job -->
+            <button id="remove-job" class="col-3 btn btn-outline-info">Delete job</button>
+            </div>
+            <br>
+                <div class="row g-3">
+                <div class ="col -2">Job Id<input class ="shorternWidth form-control" id ="job-id" type="text" placeholder="123456"/><br></div>
+                <div class = "col">Job Title<input class ="form-control" id ="job-title" type="Text" value="COO for cupcake factory"/><br></div>
+
+                <div class = "col-6">Job Start<input class ="form-control" id ="job-start" type="email" value="2011-10-05T14:48:00.000Z"/><br></div>
+                </div>
+                <div>
+                Job Image<input class ="form-control" id ="job-image" type="url" accpet = "image/png;base64 " value="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" /><br>
+                
+                Job Description<textarea class ="form-control" id ="job-description" placeholder="Dedicated technical wizard with a passion and interest in human relationships"></textarea>
+                <br>
+                </div>        
+            </div><br>
+                <div>
+                    <button id="back-first-page" class="btn" >Back to first page</button>
+                    <button id = "previous-page" class="btn" >Previous Page</button>
+                    <button id = "next-page" class="btn">Next Page</button>
+                </div>
+            <div  class="container border border-secondary">
+                <div id="feed-items" class="row align-items-start mb-3">
+                
+                </div>
+            </div>
+            <br>
+            
+        </div>
+        <div id="section-logged-out">
+
+            <div id="page-register">
+                <div class="form-group">
+                Email:<input class ="form-control" id ="register-email" type="email"/ value="hhh@ad.unsw.edu.au"><br>
+                Name: <input class ="form-control" id ="register-name" type="text" value="hhh"/><br>
+                Password:<input class ="form-control" id = "register-password" type = "password" value="12345678"/><br>        
+                Confirm Password:<input class ="form-control" id = "register-confrim-password" type = "password" value="12345678"/><br>   
+                <button id="register-button" type="button">Register</button>
+                </div>
+            </div>
+            <div id="page-login" class="hide">
+                <div class="form-group">
+                Email:<input class ="form-control" id ="login-email" type="email" value="hhh@ad.unsw.edu.au"/><br>
+                Password:<input class ="form-control" id = "login-password" type = "password" value="12345678"/><br>           
+                <button id="login-button" type="button">Login</button>      
+                </div>
+            </div>
+
+        </div>
+        <!-- app goes here --> 
+    </main>
+    <footer>
+        <p>&copy; lurkforwork.com 2022</p>
+    </footer>
+    <script type="module" src="src/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
