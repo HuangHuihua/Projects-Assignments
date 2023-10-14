@@ -1,0 +1,10 @@
+^D:\HHH\DOCUMENTS\COURSEFILES\6771\ASS2\BUILD\CMAKEFILES\A552D9B599576E669AE144BE3599B3CC\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/hhh/Documents/CourseFiles/6771/ass2 -BD:/hhh/Documents/CourseFiles/6771/ass2/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/hhh/Documents/CourseFiles/6771/ass2/build/COMP6771_ASS2.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

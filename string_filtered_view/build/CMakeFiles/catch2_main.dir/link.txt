@@ -1,0 +1,2 @@
+D:/MSYS2/mingw64/bin/ar.exe qc libcatch2_main.a CMakeFiles/catch2_main.dir/lib/catch2_main.cpp.obj
+D:/MSYS2/mingw64/bin/ranlib.exe libcatch2_main.a

@@ -1,0 +1,2 @@
+D:/MSYS2/mingw64/bin/ar.exe qc libfiltered_string_view.a CMakeFiles/filtered_string_view.dir/src/filtered_string_view.cpp.obj
+D:/MSYS2/mingw64/bin/ranlib.exe libfiltered_string_view.a

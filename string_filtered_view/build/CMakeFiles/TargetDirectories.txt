@@ -1,0 +1,6 @@
+D:/hhh/Documents/CourseFiles/6771/ass2/build/CMakeFiles/catch2_main.dir
+D:/hhh/Documents/CourseFiles/6771/ass2/build/CMakeFiles/filtered_string_view.dir
+D:/hhh/Documents/CourseFiles/6771/ass2/build/CMakeFiles/filtered_string_view_test_exe.dir
+D:/hhh/Documents/CourseFiles/6771/ass2/build/CMakeFiles/RUN_TESTS.dir
+D:/hhh/Documents/CourseFiles/6771/ass2/build/CMakeFiles/ALL_BUILD.dir
+D:/hhh/Documents/CourseFiles/6771/ass2/build/CMakeFiles/ZERO_CHECK.dir
